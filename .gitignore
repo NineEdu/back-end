@@ -80,6 +80,7 @@ ServiceFabricBackup/
 .copilot/
 .github/copilot/
 .githubcopilot/
+.claude/
 
 # Development settings
 appsettings.Development.json

@@ -1,0 +1,16 @@
+<Project>
+  <PropertyGroup>
+    <LangVersion>preview</LangVersion>
+    <Nullable>enable</Nullable>
+    <IsPackable>false</IsPackable>
+  </PropertyGroup>
+  <PropertyGroup>
+    <CoverletOutput>$(SolutionDir)</CoverletOutput>
+    <CoverletOutputFormat>json,lcov,cobertura</CoverletOutputFormat>
+    <MergeWith>$(SolutionDir)/coverage.json</MergeWith>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591;7022</NoWarn>
+  </PropertyGroup>
+</Project>
