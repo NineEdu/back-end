@@ -1,26 +1,20 @@
 using ELearningPTIT.Modules.Users.Application.DTOs;
 using ELearningPTIT.Modules.Users.Domain.Exceptions;
 using ELearningPTIT.Modules.Users.Domain.Repositories;
-using MediatR;
+using Wemogy.CQRS.Queries.Abstractions;
 
 namespace ELearningPTIT.Modules.Users.Application.Queries.GetUserProfile;
 
-public class GetUserProfileQueryHandler : IRequestHandler<GetUserProfileQuery, UserDto>
+public class GetUserProfileQueryHandler(IUserRepository userRepository)
+    : IQueryHandler<GetUserProfileQuery, UserDto>
 {
-    private readonly IUserRepository _userRepository;
-
-    public GetUserProfileQueryHandler(IUserRepository userRepository)
+    public async Task<UserDto> HandleAsync(GetUserProfileQuery query, CancellationToken cancellationToken)
     {
-        _userRepository = userRepository;
-    }
-
-    public async Task<UserDto> Handle(GetUserProfileQuery request, CancellationToken cancellationToken)
-    {
-        var user = await _userRepository.GetAsync(request.UserId, cancellationToken);
+        var user = await userRepository.GetAsync(query.UserId, cancellationToken);
 
         if (user == null)
         {
-            throw new UserNotFoundException(request.UserId);
+            throw new UserNotFoundException(query.UserId);
         }
 
         return user.ToDto();

@@ -3,7 +3,7 @@ namespace ELearningPTIT.Modules.Users.Domain.ValueObjects;
 /// <summary>
 /// Defines granular permissions for Role-Based Access Control (RBAC)
 /// </summary>
-public static class Permissions
+public static class EndpointPermissions
 {
     // User Management
     public const string UsersRead = "users:read";

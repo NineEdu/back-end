@@ -1,17 +1,21 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 using YourCompany.YourProject.Shared.Core.Abstractions;
+using YourCompany.YourProject.Shared.Core.Attributes;
 
 namespace ELearningPTIT.Modules.Users.Domain.Entities;
 
 /// <summary>
 /// Represents a user in the system (Student, Instructor, or Admin)
 /// </summary>
-public class User : IEntityBase
+[CollectionName("users")]
+public class User : EntityBase
 {
-    [BsonId]
-    [BsonRepresentation(BsonType.ObjectId)]
-    public string Id { get; set; } = ObjectId.GenerateNewId().ToString();
+    public User()
+    {
+        // Override EntityBase's Guid-based ID with MongoDB ObjectId
+        Id = ObjectId.GenerateNewId().ToString();
+    }
 
     [BsonElement("email")]
     [BsonRequired]
@@ -60,12 +64,6 @@ public class User : IEntityBase
     // For Instructors
     [BsonElement("instructorProfile")]
     public InstructorProfile? InstructorProfile { get; set; }
-
-    [BsonElement("createdAt")]
-    public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
-
-    [BsonElement("updatedAt")]
-    public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
     // Helper methods
     public bool HasRole(UserRole role) => Roles.Contains(role);

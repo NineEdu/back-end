@@ -45,7 +45,7 @@ public class JwtTokenService : IJwtTokenService
         var allPermissions = new HashSet<string>();
         foreach (var role in user.Roles)
         {
-            var rolePermissions = Domain.ValueObjects.Permissions.GetPermissionsForRole(role.ToString());
+            var rolePermissions = Domain.ValueObjects.EndpointPermissions.GetPermissionsForRole(role.ToString());
             foreach (var permission in rolePermissions)
             {
                 allPermissions.Add(permission);

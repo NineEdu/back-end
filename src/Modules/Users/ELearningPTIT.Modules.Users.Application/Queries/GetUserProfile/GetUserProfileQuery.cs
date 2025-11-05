@@ -1,6 +1,9 @@
 using ELearningPTIT.Modules.Users.Application.DTOs;
-using MediatR;
+using Wemogy.CQRS.Queries.Abstractions;
 
 namespace ELearningPTIT.Modules.Users.Application.Queries.GetUserProfile;
 
-public record GetUserProfileQuery(string UserId) : IRequest<UserDto>;
+public class GetUserProfileQuery : IQuery<UserDto>
+{
+    public required string UserId { get; init; }
+}

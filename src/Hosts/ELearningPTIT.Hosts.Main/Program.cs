@@ -1,22 +1,21 @@
 using ELearningPTIT.Modules.Users.Api;
-using ELearningPTIT.Modules.Users.Application;
-using ELearningPTIT.Modules.Users.Infrastructure;
+using FastEndpoints;
+using FastEndpoints.Swagger;
 using MongoDB.Driver;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add Controllers for Users module
-builder.Services.AddControllers()
-    .AddApplicationPart(typeof(ELearningPTIT.Modules.Users.Api.DependencyInjection).Assembly);
+// Add FastEndpoints
+builder.Services.AddFastEndpoints();
 
-builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen(c =>
+// Add Swagger for FastEndpoints
+builder.Services.SwaggerDocument(o =>
 {
-    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+    o.DocumentSettings = s =>
     {
-        Title = "E-Learning PTIT API",
-        Version = "v1"
-    });
+        s.Title = "E-Learning PTIT API";
+        s.Version = "v1";
+    };
 });
 
 // Configure MongoDB
@@ -24,33 +23,15 @@ var mongoConnectionString = builder.Configuration.GetValue<string>("MongoDB:Conn
     ?? throw new InvalidOperationException("MongoDB connection string is not configured");
 builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(mongoConnectionString));
 
-// Wire up Users module
-builder.Services.AddUsersApplication();
-builder.Services.AddUsersInfrastructure(builder.Configuration);
-builder.Services.AddUsersApi(builder.Configuration);
-
-// Wire up your modules here (example module)
-// builder.Services.AddYourFeatureModule(
-//     new CoreSetupOptions
-//     {
-//         DatabaseSetupOptions = new DatabaseSetupOptions
-//         {
-//             ConnectionString = builder.Configuration.GetValue<string>("MongoDB:ConnectionString"),
-//             DatabaseName = builder.Configuration.GetValue<string>("MongoDB:DatabaseName"),
-//         },
-//     }
-// );
+// Wire up Users module (3-layer DI pattern)
+builder.Services.AddUsersModule(builder.Configuration);
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI(c =>
-    {
-        c.SwaggerEndpoint("/swagger/v1/swagger.json", "E-Learning PTIT API v1");
-    });
+    app.UseSwaggerGen();
 }
 
 app.UseHttpsRedirection();
@@ -59,7 +40,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-// Map controllers for Users module
-app.MapControllers();
+// Map FastEndpoints
+app.UseFastEndpoints();
 
 app.Run();
