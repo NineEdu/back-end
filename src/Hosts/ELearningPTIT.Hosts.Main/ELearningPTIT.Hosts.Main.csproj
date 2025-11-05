@@ -1,0 +1,19 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <RootNamespace>YourCompany.YourProject.Hosts.Main</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\YourFeature\YourCompany.YourProject.Modules.YourFeature.Api\YourCompany.YourProject.Modules.YourFeature.Api.csproj" />
+    <ProjectReference Include="..\..\Shared\YourCompany.YourProject.Shared.Infrastructure.CosmosDb\YourCompany.YourProject.Shared.Infrastructure.CosmosDb.csproj" />
+    <ProjectReference Include="..\..\Shared\YourCompany.YourProject.Shared.Infrastructure.EntityFramework\YourCompany.YourProject.Shared.Infrastructure.EntityFramework.csproj" />
+    <ProjectReference Include="..\..\Shared\YourCompany.YourProject.Shared.Infrastructure.MongoDb\YourCompany.YourProject.Shared.Infrastructure.MongoDb.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\ELearningPTIT.Modules.Users.Api\ELearningPTIT.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\ELearningPTIT.Modules.Users.Infrastructure\ELearningPTIT.Modules.Users.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>
