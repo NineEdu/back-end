@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Shared\YourCompany.YourProject.Shared.Api\YourCompany.YourProject.Shared.Api.csproj" />
+    <ProjectReference Include="..\YourCompany.YourProject.Modules.YourFeature.Domain\YourCompany.YourProject.Modules.YourFeature.Domain.csproj" />
+    <ProjectReference Include="..\YourCompany.YourProject.Modules.YourFeature.Application\YourCompany.YourProject.Modules.YourFeature.Application.csproj" />
+    <ProjectReference Include="..\YourCompany.YourProject.Modules.YourFeature.Infrastructure\YourCompany.YourProject.Modules.YourFeature.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

@@ -1,0 +1,14 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" Version="7.0.1" />
+    <PackageReference Include="FastEndpoints.Swagger" Version="7.0.1" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YourCompany.YourProject.Shared.Core\YourCompany.YourProject.Shared.Core.csproj" />
+    <ProjectReference Include="..\YourCompany.YourProject.Shared.Infrastructure\YourCompany.YourProject.Shared.Infrastructure.csproj" />
+  </ItemGroup>
+</Project>

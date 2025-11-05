@@ -1,0 +1,12 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\YourCompany.YourProject.Modules.YourFeature.Domain\YourCompany.YourProject.Modules.YourFeature.Domain.csproj" />
+  </ItemGroup>
+  <ItemGroup>
+    <PackageReference Include="Wemogy.CQRS" Version="7.0.0" />
+  </ItemGroup>
+</Project>
