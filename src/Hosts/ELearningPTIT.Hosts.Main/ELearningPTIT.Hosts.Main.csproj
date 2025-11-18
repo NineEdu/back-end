@@ -7,6 +7,7 @@
   <ItemGroup>
     <PackageReference Include="FastEndpoints.Swagger" Version="7.1.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.19" />
+    <PackageReference Include="MongoDB.Driver" Version="3.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="9.0.6" />
   </ItemGroup>
   <ItemGroup>
@@ -16,5 +17,6 @@
     <ProjectReference Include="..\..\Shared\YourCompany.YourProject.Shared.Infrastructure.MongoDb\YourCompany.YourProject.Shared.Infrastructure.MongoDb.csproj" />
     <ProjectReference Include="..\..\Modules\Users\ELearningPTIT.Modules.Users.Api\ELearningPTIT.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Users\ELearningPTIT.Modules.Users.Infrastructure\ELearningPTIT.Modules.Users.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Modules\Courses\ELearningPTIT.Modules.Courses.Api\ELearningPTIT.Modules.Courses.Api.csproj" />
   </ItemGroup>
 </Project>

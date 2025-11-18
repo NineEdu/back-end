@@ -1,4 +1,5 @@
 using ELearningPTIT.Modules.Users.Api;
+using ELearningPTIT.Modules.Courses.Api;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using MongoDB.Driver;
@@ -25,6 +26,9 @@ builder.Services.AddSingleton<IMongoClient>(_ => new MongoClient(mongoConnection
 
 // Wire up Users module (3-layer DI pattern)
 builder.Services.AddUsersModule(builder.Configuration);
+
+// Wire up Courses module
+builder.Services.AddCoursesModule(builder.Configuration);
 
 var app = builder.Build();
 

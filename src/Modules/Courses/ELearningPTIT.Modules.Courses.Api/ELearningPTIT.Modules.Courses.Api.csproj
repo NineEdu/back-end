@@ -1,0 +1,21 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ELearningPTIT.Modules.Courses.Application\ELearningPTIT.Modules.Courses.Application.csproj" />
+    <ProjectReference Include="..\..\..\Shared\YourCompany.YourProject.Shared.Api\YourCompany.YourProject.Shared.Api.csproj" />
+    <ProjectReference Include="..\ELearningPTIT.Modules.Courses.Infrastructure\ELearningPTIT.Modules.Courses.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" Version="7.1.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.11" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
