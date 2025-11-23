@@ -1,0 +1,20 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <ItemGroup>
+    <ProjectReference Include="..\ELearningPTIT.Modules.Media.Application\ELearningPTIT.Modules.Media.Application.csproj" />
+    <ProjectReference Include="..\..\..\Shared\YourCompany.YourProject.Shared.Api\YourCompany.YourProject.Shared.Api.csproj" />
+    <ProjectReference Include="..\ELearningPTIT.Modules.Media.Infrastructure\ELearningPTIT.Modules.Media.Infrastructure.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="FastEndpoints" Version="7.1.0" />
+    <PackageReference Include="Mapster" Version="7.4.0" />
+  </ItemGroup>
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>

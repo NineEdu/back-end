@@ -1,5 +1,6 @@
 using ELearningPTIT.Modules.Users.Api;
 using ELearningPTIT.Modules.Courses.Api;
+using ELearningPTIT.Modules.Media.Api;
 using FastEndpoints;
 using FastEndpoints.Swagger;
 using MongoDB.Driver;
@@ -29,6 +30,9 @@ builder.Services.AddUsersModule(builder.Configuration);
 
 // Wire up Courses module
 builder.Services.AddCoursesModule(builder.Configuration);
+
+// Wire up Media module
+builder.Services.AddMediaModule(builder.Configuration);
 
 var app = builder.Build();
 

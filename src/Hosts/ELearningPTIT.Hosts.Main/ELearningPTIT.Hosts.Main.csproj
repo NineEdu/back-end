@@ -18,5 +18,6 @@
     <ProjectReference Include="..\..\Modules\Users\ELearningPTIT.Modules.Users.Api\ELearningPTIT.Modules.Users.Api.csproj" />
     <ProjectReference Include="..\..\Modules\Users\ELearningPTIT.Modules.Users.Infrastructure\ELearningPTIT.Modules.Users.Infrastructure.csproj" />
     <ProjectReference Include="..\..\Modules\Courses\ELearningPTIT.Modules.Courses.Api\ELearningPTIT.Modules.Courses.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Media\ELearningPTIT.Modules.Media.Api\ELearningPTIT.Modules.Media.Api.csproj" />
   </ItemGroup>
 </Project>
