@@ -7,7 +7,7 @@ using Wemogy.CQRS.Commands.Abstractions;
 namespace ELearningPTIT.Modules.Users.Api.Endpoints.Auth.Login;
 
 public class LoginEndpoint(
-    Wemogy.CQRS.Commands.Abstractions.ICommandHandler<LoginCommand, AuthResponse> commandHandler,
+    ICommands commands,
     IHttpContextAccessor httpContextAccessor)
     : Endpoint<LoginRequest, AuthResponse>
 {
@@ -29,7 +29,7 @@ public class LoginEndpoint(
             IpAddress = ipAddress
         };
 
-        var result = await commandHandler.HandleAsync(command);
+        var result = await commands.RunAsync(command);
         await Send.ResponseAsync(result, 200, ct);
     }
 }

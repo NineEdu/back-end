@@ -18,25 +18,23 @@ public class UpdateCourseEndpoint(
 
     public override async Task HandleAsync(UpdateCourseRequest req, CancellationToken ct)
     {
-        var courseId = Route<string>("courseId")!;
-
         var command = new UpdateCourseCommand
         {
-            CourseId = courseId,
-            Title = req.Title,
-            Subtitle = req.Subtitle,
-            Description = req.Description,
-            CategoryId = req.CategoryId,
-            ThumbnailUrl = req.ThumbnailUrl,
-            PreviewVideoUrl = req.PreviewVideoUrl,
-            Price = req.Price,
-            DiscountPrice = req.DiscountPrice,
-            DifficultyLevel = req.DifficultyLevel,
-            Language = req.Language,
-            Subtitles = req.Subtitles,
-            LearningOutcomes = req.LearningOutcomes,
-            Requirements = req.Requirements,
-            TargetAudience = req.TargetAudience
+            CourseId = req.CourseId,
+            Title = req.Body.Title,
+            Subtitle = req.Body.Subtitle,
+            Description = req.Body.Description,
+            CategoryId = req.Body.CategoryId,
+            ThumbnailUrl = req.Body.ThumbnailUrl,
+            PreviewVideoUrl = req.Body.PreviewVideoUrl,
+            Price = req.Body.Price,
+            DiscountPrice = req.Body.DiscountPrice,
+            DifficultyLevel = req.Body.DifficultyLevel,
+            Language = req.Body.Language,
+            Subtitles = req.Body.Subtitles,
+            LearningOutcomes = req.Body.LearningOutcomes,
+            Requirements = req.Body.Requirements,
+            TargetAudience = req.Body.TargetAudience
         };
 
         var result = await commandHandler.HandleAsync(command);

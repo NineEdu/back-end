@@ -1,12 +1,12 @@
 using System.Security.Claims;
-using ELearningPTIT.Modules.Media.Application.Commands.DeleteMedia;
+using ELearningPTIT.Modules.Media.Application.Commands;
 using FastEndpoints;
+using Wemogy.CQRS.Commands.Abstractions;
 
 namespace ELearningPTIT.Modules.Media.Api.Endpoints.Media.DeleteMedia;
 
-public class DeleteMediaEndpoint(
-    Wemogy.CQRS.Commands.Abstractions.ICommandHandler<DeleteMediaCommand> commandHandler
-) : Endpoint<DeleteMediaRequest>
+public class DeleteMediaEndpoint(ICommands commands)
+    : Endpoint<DeleteMediaRequest>
 {
     public override void Configure()
     {
@@ -30,7 +30,7 @@ public class DeleteMediaEndpoint(
             RequestedBy = userId
         };
 
-        await commandHandler.HandleAsync(command);
+        await commands.RunAsync(command);
         await Send.NoContentAsync(ct);
     }
 }

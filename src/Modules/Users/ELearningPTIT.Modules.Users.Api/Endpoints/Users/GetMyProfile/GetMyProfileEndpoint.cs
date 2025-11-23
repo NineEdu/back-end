@@ -2,12 +2,11 @@ using System.Security.Claims;
 using ELearningPTIT.Modules.Users.Application.DTOs;
 using ELearningPTIT.Modules.Users.Application.Queries.GetUserProfile;
 using FastEndpoints;
-using Microsoft.AspNetCore.Http;
 using Wemogy.CQRS.Queries.Abstractions;
 
 namespace ELearningPTIT.Modules.Users.Api.Endpoints.Users.GetMyProfile;
 
-public class GetMyProfileEndpoint(Wemogy.CQRS.Queries.Abstractions.IQueryHandler<GetUserProfileQuery, UserDto> queryHandler)
+public class GetMyProfileEndpoint(IQueries queries)
     : EndpointWithoutRequest<UserDto>
 {
     public override void Configure()
@@ -27,7 +26,7 @@ public class GetMyProfileEndpoint(Wemogy.CQRS.Queries.Abstractions.IQueryHandler
         }
 
         var query = new GetUserProfileQuery { UserId = userId };
-        var result = await queryHandler.HandleAsync(query, ct);
+        var result = await queries.QueryAsync(query, ct);
         await Send.ResponseAsync(result, 200, ct);
     }
 }

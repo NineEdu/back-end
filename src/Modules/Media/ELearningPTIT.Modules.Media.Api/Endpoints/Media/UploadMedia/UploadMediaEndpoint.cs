@@ -1,13 +1,13 @@
 using System.Security.Claims;
-using ELearningPTIT.Modules.Media.Application.Commands.UploadMedia;
+using ELearningPTIT.Modules.Media.Application.Commands;
 using ELearningPTIT.Modules.Media.Application.DTOs;
 using FastEndpoints;
+using Wemogy.CQRS.Commands.Abstractions;
 
 namespace ELearningPTIT.Modules.Media.Api.Endpoints.Media.UploadMedia;
 
-public class UploadMediaEndpoint(
-    Wemogy.CQRS.Commands.Abstractions.ICommandHandler<UploadMediaCommand, MediaAssetDto> commandHandler
-) : Endpoint<UploadMediaRequest, MediaAssetDto>
+public class UploadMediaEndpoint(ICommands commands)
+    : Endpoint<UploadMediaRequest, MediaAssetDto>
 {
     public override void Configure()
     {
@@ -38,7 +38,7 @@ public class UploadMediaEndpoint(
             UploadedBy = userId
         };
 
-        var result = await commandHandler.HandleAsync(command);
+        var result = await commands.RunAsync(command);
         await Send.ResponseAsync(result, 201, ct);
     }
 }

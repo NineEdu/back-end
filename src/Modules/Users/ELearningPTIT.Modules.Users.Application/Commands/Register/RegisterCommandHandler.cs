@@ -15,33 +15,31 @@ public class RegisterCommandHandler(
 {
     public async Task<AuthResponse> HandleAsync(RegisterCommand command)
     {
-        // Check if user already exists
-        var existingUser = await userRepository.GetByEmailAsync(command.Email.ToLowerInvariant());
+        var email = command.Email.ToLowerInvariant();
+
+        var existingUser = await userRepository.GetAsync(u => u.Email == email);
         if (existingUser != null)
         {
             throw new UserAlreadyExistsException(command.Email);
         }
 
-        // Parse roles
         var roles = command.Roles
             .Select(r => Enum.Parse<UserRole>(r, ignoreCase: true))
             .ToList();
 
-        // Create user
         var user = new User
         {
-            Email = command.Email.ToLowerInvariant(),
+            Email = email,
             PasswordHash = passwordHasher.HashPassword(command.Password),
             FirstName = command.FirstName,
             LastName = command.LastName,
             PhoneNumber = command.PhoneNumber,
             Roles = roles,
-            IsEmailVerified = false, // Will be verified via email
+            IsEmailVerified = false,
             IsActive = true,
             EmailVerificationToken = Guid.NewGuid().ToString()
         };
 
-        // If user is an instructor, initialize instructor profile
         if (user.IsInstructor())
         {
             user.InstructorProfile = new InstructorProfile
@@ -53,16 +51,12 @@ public class RegisterCommandHandler(
             };
         }
 
-        // Generate tokens
         var accessToken = jwtTokenService.GenerateAccessToken(user);
         var refreshToken = jwtTokenService.GenerateRefreshToken(command.IpAddress);
 
         user.RefreshTokens.Add(refreshToken);
 
-        // Save user
         await userRepository.CreateAsync(user);
-
-        // TODO: Send verification email (will be implemented in Notification Service)
 
         return new AuthResponse(
             accessToken,

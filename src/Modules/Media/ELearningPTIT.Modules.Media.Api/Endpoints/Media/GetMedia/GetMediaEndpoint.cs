@@ -1,13 +1,12 @@
 using ELearningPTIT.Modules.Media.Application.DTOs;
-using ELearningPTIT.Modules.Media.Application.Queries.GetMediaAsset;
+using ELearningPTIT.Modules.Media.Application.Queries;
 using FastEndpoints;
 using Wemogy.CQRS.Queries.Abstractions;
 
 namespace ELearningPTIT.Modules.Media.Api.Endpoints.Media.GetMedia;
 
-public class GetMediaEndpoint(
-    IQueryHandler<GetMediaAssetQuery, MediaAssetDto?> queryHandler
-) : Endpoint<GetMediaRequest, MediaAssetDto>
+public class GetMediaEndpoint(IQueries queries)
+    : Endpoint<GetMediaRequest, MediaAssetDto>
 {
     public override void Configure()
     {
@@ -17,12 +16,8 @@ public class GetMediaEndpoint(
 
     public override async Task HandleAsync(GetMediaRequest req, CancellationToken ct)
     {
-        var query = new GetMediaAssetQuery
-        {
-            MediaAssetId = req.Id
-        };
-
-        var result = await queryHandler.HandleAsync(query, ct);
+        var query = new GetMediaAssetQuery { MediaAssetId = req.Id };
+        var result = await queries.QueryAsync(query, ct);
 
         if (result == null)
         {

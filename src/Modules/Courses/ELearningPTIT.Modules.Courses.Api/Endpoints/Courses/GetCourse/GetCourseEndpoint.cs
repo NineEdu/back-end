@@ -5,9 +5,8 @@ using Wemogy.CQRS.Queries.Abstractions;
 
 namespace ELearningPTIT.Modules.Courses.Api.Endpoints.Courses.GetCourse;
 
-public class GetCourseEndpoint(
-    IQueryHandler<GetCourseByIdQuery, CourseDto?> queryHandler)
-    : EndpointWithoutRequest<CourseDto?>
+public class GetCourseEndpoint(IQueries queries)
+    : Endpoint<GetCourseRequest, CourseDto?>
 {
     public override void Configure()
     {
@@ -16,12 +15,10 @@ public class GetCourseEndpoint(
         AllowAnonymous();
     }
 
-    public override async Task HandleAsync(CancellationToken ct)
+    public override async Task HandleAsync(GetCourseRequest req, CancellationToken ct)
     {
-        var courseId = Route<string>("courseId")!;
-
-        var query = new GetCourseByIdQuery { CourseId = courseId };
-        var result = await queryHandler.HandleAsync(query, ct);
+        var query = new GetCourseByIdQuery { CourseId = req.CourseId };
+        var result = await queries.QueryAsync(query, ct);
 
         if (result == null)
         {

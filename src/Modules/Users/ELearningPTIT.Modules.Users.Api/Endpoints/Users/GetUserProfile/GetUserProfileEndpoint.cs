@@ -6,7 +6,7 @@ using Wemogy.CQRS.Queries.Abstractions;
 
 namespace ELearningPTIT.Modules.Users.Api.Endpoints.Users.GetUserProfile;
 
-public class GetUserProfileEndpoint(Wemogy.CQRS.Queries.Abstractions.IQueryHandler<GetUserProfileQuery, UserDto> queryHandler)
+public class GetUserProfileEndpoint(IQueries queries)
     : Endpoint<GetUserProfileRequest, UserDto>
 {
     public override void Configure()
@@ -19,7 +19,7 @@ public class GetUserProfileEndpoint(Wemogy.CQRS.Queries.Abstractions.IQueryHandl
     public override async Task HandleAsync(GetUserProfileRequest req, CancellationToken ct)
     {
         var query = new GetUserProfileQuery { UserId = req.UserId };
-        var result = await queryHandler.HandleAsync(query, ct);
+        var result = await queries.QueryAsync(query, ct);
         await Send.ResponseAsync(result, 200, ct);
     }
 }

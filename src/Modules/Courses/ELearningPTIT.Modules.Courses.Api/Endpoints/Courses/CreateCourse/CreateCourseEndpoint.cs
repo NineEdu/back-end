@@ -6,8 +6,7 @@ using Wemogy.CQRS.Commands.Abstractions;
 
 namespace ELearningPTIT.Modules.Courses.Api.Endpoints.Courses.CreateCourse;
 
-public class CreateCourseEndpoint(
-    Wemogy.CQRS.Commands.Abstractions.ICommandHandler<CreateCourseCommand, CourseDto> commandHandler)
+public class CreateCourseEndpoint(ICommands commands)
     : Endpoint<CreateCourseRequest, CourseDto>
 {
     public override void Configure()
@@ -35,7 +34,7 @@ public class CreateCourseEndpoint(
             Language = req.Language
         };
 
-        var result = await commandHandler.HandleAsync(command);
+        var result = await commands.RunAsync(command);
         await Send.ResponseAsync(result, 201, ct);
     }
 }

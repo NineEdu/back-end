@@ -14,36 +14,30 @@ public class LoginCommandHandler(
 {
     public async Task<AuthResponse> HandleAsync(LoginCommand command)
     {
-        // Find user by email
-        var user = await userRepository.GetByEmailAsync(command.Email.ToLowerInvariant());
+        var email = command.Email.ToLowerInvariant();
+
+        var user = await userRepository.GetAsync(u => u.Email == email);
         if (user == null)
         {
             throw new InvalidCredentialsException();
         }
 
-        // Verify password
         if (!passwordHasher.VerifyPassword(command.Password, user.PasswordHash))
         {
             throw new InvalidCredentialsException();
         }
 
-        // Check if user is active
         if (!user.IsActive)
         {
             throw new UserInactiveException();
         }
 
-        // Generate tokens
         var accessToken = jwtTokenService.GenerateAccessToken(user);
         var refreshToken = jwtTokenService.GenerateRefreshToken(command.IpAddress);
 
-        // Remove old inactive refresh tokens
         user.RefreshTokens.RemoveAll(rt => !rt.IsActive);
-
-        // Add new refresh token
         user.RefreshTokens.Add(refreshToken);
 
-        // Update user
         user.UpdatedAt = DateTime.UtcNow;
         await userRepository.ReplaceAsync(user);
 

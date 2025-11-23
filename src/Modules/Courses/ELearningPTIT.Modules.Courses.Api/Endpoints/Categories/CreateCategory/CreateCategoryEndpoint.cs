@@ -5,8 +5,7 @@ using Wemogy.CQRS.Commands.Abstractions;
 
 namespace ELearningPTIT.Modules.Courses.Api.Endpoints.Categories.CreateCategory;
 
-public class CreateCategoryEndpoint(
-    Wemogy.CQRS.Commands.Abstractions.ICommandHandler<CreateCategoryCommand, CategoryDto> commandHandler)
+public class CreateCategoryEndpoint(ICommands commands)
     : Endpoint<CreateCategoryRequest, CategoryDto>
 {
     public override void Configure()
@@ -27,7 +26,7 @@ public class CreateCategoryEndpoint(
             DisplayOrder = req.DisplayOrder
         };
 
-        var result = await commandHandler.HandleAsync(command);
+        var result = await commands.RunAsync(command);
         await Send.ResponseAsync(result, 201, ct);
     }
 }

@@ -7,7 +7,7 @@ using Wemogy.CQRS.Commands.Abstractions;
 namespace ELearningPTIT.Modules.Users.Api.Endpoints.Auth.Register;
 
 public class RegisterEndpoint(
-    Wemogy.CQRS.Commands.Abstractions.ICommandHandler<RegisterCommand, AuthResponse> commandHandler,
+    ICommands commands,
     IHttpContextAccessor httpContextAccessor)
     : Endpoint<RegisterRequest, AuthResponse>
 {
@@ -29,11 +29,11 @@ public class RegisterEndpoint(
             FirstName = req.FirstName,
             LastName = req.LastName,
             PhoneNumber = req.PhoneNumber,
-            Roles = req.Roles ?? new List<string> { "Student" }, // Default to Student role
+            Roles = req.Roles ?? new List<string> { "Student" },
             IpAddress = ipAddress
         };
 
-        var result = await commandHandler.HandleAsync(command);
+        var result = await commands.RunAsync(command);
         await Send.ResponseAsync(result, 200, ct);
     }
 }
